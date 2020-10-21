@@ -98,21 +98,49 @@ React Router，是history这个为React Router提供核心功能的包。它能�
 <Route children>
 ```
 
-component最常用，只有匹配location才会加载component对应的React组件
-render路由匹配函数就会调用
-children不管路由是否匹配都会渲染对应组件
+```js
+<Router>
+    <Link to="/">首页</Link>
+    <Link to="/user">用户</Link>
+    <Link to="/home">主页</Link>
+    <Link to="/login">登录</Link>
+    {/* component */}
+    <Route path="/user" component={() => <UserPage count={count} />} />
+    {/* render */}
+    <Route path="/home" render={() => {
+        console.log('homepage')
+        return <HomePage />
+        }}
+    />
+    {/* children */}
+    <Route path="/login" children={LoginPage} />
+</Router>
+```
 
-> [render的方法](https://blog.csdn.net/xiaoqingrong/article/details/101055085)
+* 三者差异
+component  最常用，只有匹配location才会加载component对应的React组件
+render  路由匹配函数就会调用
+children 不管路由是否匹配都会渲染对应组件
+
+* component 和 render 区别
+
+1. 当你使用component(而不是render, children), router使用React.createElement从给定组件创建一个新的React元素。这意味着每次呈现时创建一个新组件。这将导致现有组件卸载和新组件挂载，而不只是更新现有组件。
+2. 使用render可以访问相同的路径(match,location和history)作为组件渲染道具,而不需要进行不必要的重新加载.
+
+那么，我们现有的开发中什么场景需要用到render这种方式？？
+
+> 结论: Route渲染优先级: children > component > render
+> [render的方法](https://www.jianshu.com/p/2e7007a06d79)
 
 ### route
 
 * path: string
 
-匹配路径，还可以支持正则匹配，不写时全部匹配
+匹配路径，还可以支持正则匹配
 
 * exact: bool
 
-是否需要完全匹配，默认为false，当设置为 true 时，路由需要完全相同时才能匹配，最后的斜杠时不计入完全匹配的
+是否需要完全匹配，默认为false，当设置为 true 时，路由需要完全相同时才能匹配，最后的斜杠不计入完全匹配的
 >tips：此次有一个小坑就时，如果是在父级路由上加入了 exact 时，子路由就不能进行匹配了，所以不能在有子路由的路由上面加此属性。
 
 * strict: bool
@@ -122,6 +150,10 @@ children不管路由是否匹配都会渲染对应组件
 * sensitive: bool
 
 路径是否区分大小写，默认为false，当设置为true时，需要严格匹配路径的大小写，一般也不咋用
+
+* location: object
+
+> [location sandbox demo](https://reactrouter.com/web/example/animated-transitions)
 
 ### router
 

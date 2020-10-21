@@ -8,9 +8,15 @@ import RouteRenderDemo from  './router/routeRender'
 function App() {
   return (
 
-      // <RouteDemo/>
-      <RouteRenderDemo/>
-      // <BrowserRouterDemo/>
+    // 1、route 渲染方式
+    // <RouteRenderDemo/>
+
+    // 2、route 基础
+    <RouteDemo/>
+    
+    
+    
+    // <BrowserRouterDemo/>
       
   );
 }

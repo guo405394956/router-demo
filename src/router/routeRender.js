@@ -31,10 +31,10 @@ function RouteRenderDemo() {
         <Link to="/login">登录</Link>
      
       {/* component */}   
-      {/* <Route path="/user" component={() => <UserPage count={count} />} /> */}
+      <Route path="/user" component={() => <UserPage count={count} />} />
       
       {/* render */}
-       <Route path="/user" render={() => <UserPage count={count} />} /> 
+       {/* <Route path="/user" render={() => <UserPage count={count} />} />  */}
        
        <Route
           path="/home"
@@ -45,7 +45,7 @@ function RouteRenderDemo() {
         />
 
         {/* children */}
-       <Route path="/login" children={LoginPage} />
+        <Route path="/login" children={LoginPage} />
       </Router>
     </div>
   )
